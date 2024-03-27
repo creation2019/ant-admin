@@ -6,13 +6,29 @@
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "eslint": "eslint src --ext .js,.vue,.ts,.jsx,.tsx --ignore-path .gitignore --fix",
+    "prettier": "prettier --write \"./**/*.{html,vue,ts,js,json,md}\"",
+    "lint:style": "stylelint \"./**/*.{css,less,vue,html}\" --fix"
   },
   "dependencies": {
     "vue": "^3.4.21"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.4",
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.1.3",
+    "postcss": "^8.4.38",
+    "postcss-html": "^1.6.0",
+    "postcss-scss": "^4.0.9",
+    "prettier": "^3.2.5",
+    "stylelint": "^16.3.1",
+    "stylelint-config-recommended-scss": "^14.0.0",
+    "stylelint-config-standard": "^36.0.0",
+    "stylelint-config-standard-vue": "^1.0.0",
+    "stylelint-order": "^6.0.4",
+    "stylelint-scss": "^6.2.1",
     "typescript": "^5.2.2",
     "vite": "^5.2.0",
     "vue-tsc": "^2.0.6"

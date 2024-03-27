@@ -24,7 +24,7 @@ module.exports = {
     // 'type-case': [0, 'always', 'lower-case'], // type必须小写，upper-case大写，camel-case小驼峰，kebab-case短横线，pascal-case大驼峰，等等
     'scope-empty': [0],
     // 'scope-case': [0],
-    // 'subject-empty': [2, 'never'], // subject不能为空
+    'subject-empty': [2, 'never'], // subject不能为空
     // 'subject-case': [0],
     // 'subject-full-stop': [0, 'never', '.'], // subject以.为结束标记
     // 'header-max-length': [2, 'always', 72], // header最长72

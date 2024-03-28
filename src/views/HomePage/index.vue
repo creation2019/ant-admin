@@ -6,6 +6,6 @@ defineOptions({
 
 <template>
   <div class="HomePage">
-    <h2>HomePage</h2>
+    <h2 class="text-3xl bg-red-400">asdsadHomePage</h2>
   </div>
 </template>

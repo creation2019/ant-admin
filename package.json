@@ -16,11 +16,15 @@
     "commitlint": "commitlint --config .commitlint.config.cjs -e -V"
   },
   "dependencies": {
-    "vue": "^3.4.21"
+    "axios": "^1.6.8",
+    "pinia": "^2.1.7",
+    "vue": "^3.4.21",
+    "vue-router": "^4.3.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.2.1",
     "@commitlint/config-conventional": "^19.1.0",
+    "@types/node": "^20.11.30",
     "@typescript-eslint/eslint-plugin": "^7.4.0",
     "@typescript-eslint/parser": "^7.4.0",
     "@vitejs/plugin-vue": "^5.0.4",
@@ -43,7 +47,9 @@
     "stylelint-order": "^6.0.4",
     "stylelint-scss": "^6.2.1",
     "typescript": "^5.2.2",
+    "unplugin-auto-import": "^0.17.5",
     "vite": "^5.2.0",
+    "vue-global-api": "^0.4.1",
     "vue-tsc": "^2.0.6"
   },
   "config": {

@@ -1,13 +1,18 @@
 <script setup lang="ts">
-import { useRouter } from 'vue-router'
-import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/icons-vue'
-const selectedKeys2 = ref<string[]>(['1'])
-const openKeys = ref<string[]>(['sub1'])
-const router = useRouter()
+import {
+  PieChartOutlined,
+  DesktopOutlined,
+  UserOutlined,
+  TeamOutlined,
+  FileOutlined,
+  MenuFoldOutlined,
+  MenuUnfoldOutlined,
+} from '@ant-design/icons-vue'
+import Navbar from './navbar/index.vue'
+import Tag from './components/tag/index.vue'
 
-const handleOut = () => {
-  router.push('/login')
-}
+const collapsed = ref<boolean>(false)
+const selectedKeys = ref<string[]>(['1'])
 
 defineOptions({
   name: 'Layout',
@@ -17,64 +22,63 @@ defineOptions({
 <template>
   <a-layout class="app-wrapper">
     <a-layout-header class="app-header">
-      <a-dropdown :trigger="['click']">
-        <a class="ant-dropdown-link" @click.prevent> Click me </a>
-        <template #overlay>
-          <a-menu>
-            <a-menu-item key="3" @click="handleOut">退出登录</a-menu-item>
-          </a-menu>
-        </template>
-      </a-dropdown>
+      <Navbar />
     </a-layout-header>
     <a-layout>
-      <a-layout-sider width="200" style="background: #fff">
-        <a-menu v-model:selectedKeys="selectedKeys2" v-model:openKeys="openKeys" mode="inline" :style="{ height: '100%', borderRight: 0 }">
+      <a-layout-sider v-model:collapsed="collapsed" collapsible style="background: #fff" class="app-sider">
+        <template #trigger>
+          <div>
+            <MenuUnfoldOutlined v-if="collapsed" />
+            <MenuFoldOutlined v-else />
+          </div>
+        </template>
+        <a-menu v-model:selectedKeys="selectedKeys" mode="inline">
+          <a-menu-item key="1">
+            <pie-chart-outlined />
+            <span>Option 1</span>
+          </a-menu-item>
+          <a-menu-item key="2">
+            <desktop-outlined />
+            <span>Option 2</span>
+          </a-menu-item>
           <a-sub-menu key="sub1">
             <template #title>
               <span>
                 <user-outlined />
-                subnav 1
+                <span>User</span>
               </span>
             </template>
-            <a-menu-item key="1">option1</a-menu-item>
-            <a-menu-item key="2">option2</a-menu-item>
-            <a-menu-item key="3">option3</a-menu-item>
-            <a-menu-item key="4">option4</a-menu-item>
+            <a-menu-item key="3">Tom</a-menu-item>
+            <a-menu-item key="4">Bill</a-menu-item>
+            <a-menu-item key="5">Alex</a-menu-item>
           </a-sub-menu>
           <a-sub-menu key="sub2">
             <template #title>
               <span>
-                <laptop-outlined />
-                subnav 2
+                <team-outlined />
+                <span>Team</span>
               </span>
             </template>
-            <a-menu-item key="5">option5</a-menu-item>
-            <a-menu-item key="6">option6</a-menu-item>
-            <a-menu-item key="7">option7</a-menu-item>
-            <a-menu-item key="8">option8</a-menu-item>
+            <a-menu-item key="6">Team 1</a-menu-item>
+            <a-menu-item key="8">Team 2</a-menu-item>
           </a-sub-menu>
-          <a-sub-menu key="sub3">
-            <template #title>
-              <span>
-                <notification-outlined />
-                subnav 3
-              </span>
-            </template>
-            <a-menu-item key="9">option9</a-menu-item>
-            <a-menu-item key="10">option10</a-menu-item>
-            <a-menu-item key="11">option11</a-menu-item>
-            <a-menu-item key="12">option12</a-menu-item>
-          </a-sub-menu>
+          <a-menu-item key="9">
+            <file-outlined />
+            <span>File</span>
+          </a-menu-item>
         </a-menu>
       </a-layout-sider>
-      <a-layout style="padding: 0 24px 24px">
-        <a-breadcrumb style="margin: 16px 0">
+      <a-layout style="position: relative; overflow: auto">
+        <Tag />
+        <!-- <a-breadcrumb style="margin: 16px 0">
           <a-breadcrumb-item>Home</a-breadcrumb-item>
           <a-breadcrumb-item>List</a-breadcrumb-item>
           <a-breadcrumb-item>App</a-breadcrumb-item>
-        </a-breadcrumb>
-        <a-layout-content :style="{ background: '#fff', padding: '24px', margin: 0, minHeight: '280px' }">
-          <router-view></router-view>
+        </a-breadcrumb> -->
+        <a-layout-content :style="{ background: '#f5f5f5', padding: '16px', margin: 0, minHeight: '280px' }">
+          <div style="width: 100%; height: 100%; background: #fff">
+            <router-view></router-view>
+          </div>
         </a-layout-content>
       </a-layout>
     </a-layout>
@@ -98,7 +102,11 @@ defineOptions({
   background-color: #fff;
 }
 
-.site-layout-background {
-  background: #fff;
+.app-sider {
+  background-color: aqua;
+
+  :deep(.ant-layout-sider-children) {
+    overflow-y: auto;
+  }
 }
 </style>

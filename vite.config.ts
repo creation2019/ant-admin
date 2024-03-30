@@ -5,7 +5,7 @@ import * as path from 'path'
 export default defineConfig(({ mode, command }: ConfigEnv): UserConfig => {
   const env = loadEnv(mode, process.cwd())
   return {
-    base: '/',
+    base: env.VITE_APP_CONTEXT_PATH,
     plugins: createPlugins(env, command === 'build'),
     resolve: {
       // 设置别名
@@ -19,6 +19,19 @@ export default defineConfig(({ mode, command }: ConfigEnv): UserConfig => {
         Plugins: path.resolve(__dirname, 'src/plugins'),
         API: path.resolve(__dirname, 'src/api'),
         Store: path.resolve(__dirname, 'src/store'),
+      },
+    },
+    server: {
+      host: '0.0.0.0',
+      port: Number(env.VITE_APP_PORT),
+      open: true,
+      proxy: {
+        [env.VITE_APP_BASE_API]: {
+          target: env.VITE_APP_BASE_URL,
+          ws: true,
+          changeOrigin: true,
+          rewrite: (path) => path.replace(new RegExp('^' + env.VITE_APP_BASE_API), ''),
+        },
       },
     },
     build: {

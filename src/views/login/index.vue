@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { $getCodeImg } from 'API/login'
+
 import { useRouter } from 'vue-router'
 interface FormState {
   username: string
@@ -15,14 +17,32 @@ const formState = reactive<FormState>({
   select: '',
   code: '',
 })
+// 验证码开关
+const captchaEnabled = ref(true)
 const onFinish = (values: any) => {
   console.log('Success:', values)
   router.push('/')
 }
+const codeUrl = ref('')
+/**
+ * 获取验证码
+ */
+const getCode = async () => {
+  const { data } = await $getCodeImg()
 
+  captchaEnabled.value = data.captchaEnabled === undefined ? true : data.captchaEnabled
+  if (captchaEnabled.value) {
+    codeUrl.value = 'data:image/gif;base64,' + data.img
+    console.log(' ', codeUrl.value)
+    // loginForm.value.uuid = data.uuid;
+  }
+}
 const onFinishFailed = (errorInfo: any) => {
   console.log('Failed:', errorInfo)
 }
+onMounted(() => {
+  getCode()
+})
 defineOptions({
   name: 'Login',
 })
@@ -63,7 +83,9 @@ defineOptions({
               <a-form-item label="" name="code" :rules="[{ required: true, message: 'Please input your password!' }]">
                 <div class="flex">
                   <a-input v-model:value="formState.code" style="width: calc(100% - 200px)" />
-                  <div style="width: 200px" class="px-4"></div>
+                  <div style="width: 200px" class="pl-4 login-code-img">
+                    <img :src="codeUrl" @click="getCode" />
+                  </div>
                 </div>
               </a-form-item>
               <a-form-item name="remember">
@@ -134,6 +156,17 @@ defineOptions({
     .login-title {
       .title {
         font-size: 28px;
+      }
+    }
+
+    .login-code-img {
+      height: 40px;
+
+      img {
+        width: 100%;
+        height: 38px;
+        cursor: pointer;
+        vertical-align: middle;
       }
     }
   }

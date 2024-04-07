@@ -2,6 +2,7 @@ import axios, { AxiosResponse, InternalAxiosRequestConfig } from 'axios'
 
 import { HttpStatus } from '@/enums/RespEnum'
 import { errorCode } from '@/utils/errorCode'
+import { message } from 'ant-design-vue'
 
 axios.defaults.headers['Content-Type'] = 'application/json;charset=utf-8'
 axios.defaults.headers['clientid'] = import.meta.env.VITE_APP_CLIENT_ID
@@ -34,11 +35,16 @@ service.interceptors.response.use(
     // 未设置状态码则默认成功状态
     const code = res.data.code || HttpStatus.SUCCESS
     // 获取错误信息
-    const _msg = errorCode[code] || res.data.msg || errorCode['default']
+    const msg = errorCode[code] || res.data.msg || errorCode['default']
 
     // 二进制数据则直接返回
     if (res.request.responseType === 'blob' || res.request.responseType === 'arraybuffer') {
       return res.data
+    }
+    if (code === HttpStatus.UNAUTHORIZED) {
+      console.log(' ')
+    } else if (code === HttpStatus.SERVER_ERROR) {
+      message.error(msg)
     }
 
     return Promise.resolve(res.data)

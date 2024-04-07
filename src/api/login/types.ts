@@ -24,8 +24,8 @@ export interface LoginData {
   source?: string
   code?: string
   uuid?: string
-  clientId: string
-  grantType: string
+  clientId?: string
+  grantType?: string
 }
 
 /**

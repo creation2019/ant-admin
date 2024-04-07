@@ -9,6 +9,8 @@ import '@/assets/style/tailwind.css'
 import { setupRouter } from 'Plugins/router'
 import { setupStore } from 'Store/index'
 
+import 'Plugins/permission'
+
 const app = createApp(App)
 async function setupApp() {
   // 挂载pinia状态管理

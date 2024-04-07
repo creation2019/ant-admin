@@ -1,13 +1,16 @@
 <script setup lang="ts">
 import { $getCodeImg, $getTenantList } from 'API/login'
 import { LoginData, TenantVO } from 'API/types'
+import { useUserStore } from 'Store/modules/user'
 import { useRouter } from 'vue-router'
-
+const userStore = useUserStore()
 const router = useRouter()
+const loading = ref(false)
 // 租户列表
 const tenantList = ref<TenantVO[]>([])
 // 租户开关
 const tenantEnabled = ref(true)
+const redirect = ref(undefined)
 const formState = ref<LoginData>({
   tenantId: '',
   username: '',
@@ -18,8 +21,21 @@ const formState = ref<LoginData>({
 })
 // 验证码开关
 const captchaEnabled = ref(true)
-const onFinish = (_values: any) => {
-  router.push('/')
+const onFinish = async (values: any) => {
+  try {
+    loading.value = true
+    await userStore.login(values)
+    await router.push({ path: redirect.value || '/' })
+  } catch (error) {
+    loading.value = false
+    // 重新获取验证码
+    if (captchaEnabled.value) {
+      await getCode()
+    }
+    console.log(' ', error)
+  }
+
+  // router.push('/')
 }
 const codeUrl = ref('')
 /**
@@ -85,21 +101,21 @@ defineOptions({
           <div class="mt-10">
             <a-form :model="formState" name="basic" autocomplete="off" @finish="onFinish" size="large">
               <a-form-item label="" name="tenantId" :rules="[{ required: true, message: 'Please input your username!' }]">
-                <a-select v-model:value="formState.tenantId" placeholder="Please select a country">
+                <a-select v-model:value="formState.tenantId" placeholder="请选择/输入公司名称">
                   <a-select-option v-for="item in tenantList" :key="item.tenantId" :value="item.tenantId">
                     {{ item.companyName }}
                   </a-select-option>
                 </a-select>
               </a-form-item>
-              <a-form-item label="" name="username" :rules="[{ required: true, message: 'Please input your password!' }]">
-                <a-input v-model:value="formState.username" />
+              <a-form-item label="" name="username" :rules="[{ required: true, message: '登录账号不能为空' }]">
+                <a-input v-model:value="formState.username" placeholder="请输入登录账号" />
               </a-form-item>
-              <a-form-item label="" name="password" :rules="[{ required: true, message: 'Please input your password!' }]">
-                <a-input-password v-model:value="formState.password" autocomplete="off" />
+              <a-form-item label="" name="password" :rules="[{ required: true, message: '登录密码不能为空' }]">
+                <a-input-password v-model:value="formState.password" autocomplete="off" placeholder="请输入登录密码" />
               </a-form-item>
-              <a-form-item label="" name="code" :rules="[{ required: true, message: 'Please input your password!' }]">
+              <a-form-item label="" name="code" :rules="[{ required: true, message: '请输入验证码' }]">
                 <div class="flex">
-                  <a-input v-model:value="formState.code" style="width: calc(100% - 200px)" />
+                  <a-input v-model:value="formState.code" style="width: calc(100% - 200px)" placeholder="请输入验证码" />
                   <div style="width: 200px" class="pl-4 login-code-img">
                     <img :src="codeUrl" @click="getCode" alt="校验码" />
                   </div>
@@ -108,9 +124,11 @@ defineOptions({
               <a-form-item name="rememberMe">
                 <a-checkbox v-model:checked="formState.rememberMe">记住密码</a-checkbox>
               </a-form-item>
-
+              <a-form-item name="uuid" style="height: 0">
+                <a-input v-model:value="formState.uuid" type="hidden" />
+              </a-form-item>
               <a-form-item>
-                <a-button type="primary" html-type="submit" block>登录</a-button>
+                <a-button type="primary" html-type="submit" block :loading="loading">登录</a-button>
               </a-form-item>
             </a-form>
           </div>

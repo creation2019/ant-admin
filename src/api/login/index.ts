@@ -25,6 +25,13 @@ export function $login(data: LoginData): AxiosPromise<LoginResult> {
     data: params,
   })
 }
+// 获取用户详细信息
+export function $getInfo(): AxiosPromise<any> {
+  return service({
+    url: '/system/user/getInfo',
+    method: 'get',
+  })
+}
 
 // 注册方法
 export function $register(data: any) {

@@ -1,5 +1,4 @@
 import { App } from 'vue'
-
 import { RouteRecordRaw, createRouter, createWebHistory } from 'vue-router'
 
 type RouterModule = {

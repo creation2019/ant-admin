@@ -1,15 +1,17 @@
 <script setup lang="ts">
 defineOptions({
-  name: 'Tag',
+  name: 'Profile',
 })
 </script>
 
 <template>
-  <div class="Tag"></div>
+  <div class="Profile">
+    <h2>Profile</h2>
+  </div>
 </template>
 
 <style lang="scss" scoped>
-.tag {
+.profile {
   color: red;
 }
 </style>

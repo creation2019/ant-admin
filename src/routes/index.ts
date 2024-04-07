@@ -37,4 +37,17 @@ export default [
     ],
   },
   { path: '/login', name: 'login', component: () => import('Views/login/index.vue') },
+  {
+    path: '/system',
+    component: Layout,
+    hidden: true,
+    children: [
+      {
+        path: 'profile',
+        component: () => import('Views/system/profile/index.vue'),
+        name: 'profile',
+        meta: { title: '个人中心', icon: 'user' },
+      },
+    ],
+  },
 ]

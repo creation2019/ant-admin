@@ -9,7 +9,8 @@ import {
   MenuUnfoldOutlined,
 } from '@ant-design/icons-vue'
 import Navbar from './navbar/index.vue'
-import Tag from './components/tag/index.vue'
+import AppMain from './components/appMain.vue'
+// import Tag from './components/tag/index.vue'
 
 const collapsed = ref<boolean>(false)
 const selectedKeys = ref<string[]>(['1'])
@@ -69,16 +70,9 @@ defineOptions({
         </a-menu>
       </a-layout-sider>
       <a-layout style="position: relative; overflow: auto">
-        <Tag />
-        <!-- <a-breadcrumb style="margin: 16px 0">
-          <a-breadcrumb-item>Home</a-breadcrumb-item>
-          <a-breadcrumb-item>List</a-breadcrumb-item>
-          <a-breadcrumb-item>App</a-breadcrumb-item>
-        </a-breadcrumb> -->
-        <a-layout-content :style="{ background: '#f5f5f5', padding: '16px', margin: 0, minHeight: '280px' }">
-          <div style="width: 100%; height: 100%; background: #fff">
-            <router-view></router-view>
-          </div>
+        <!-- <Tag /> -->
+        <a-layout-content>
+          <AppMain />
         </a-layout-content>
       </a-layout>
     </a-layout>
@@ -103,8 +97,6 @@ defineOptions({
 }
 
 .app-sider {
-  background-color: aqua;
-
   :deep(.ant-layout-sider-children) {
     overflow-y: auto;
   }

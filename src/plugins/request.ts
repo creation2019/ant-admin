@@ -1,4 +1,5 @@
 import axios, { AxiosResponse, InternalAxiosRequestConfig } from 'axios'
+
 import { HttpStatus } from '@/enums/RespEnum'
 import { errorCode } from '@/utils/errorCode'
 
@@ -39,6 +40,7 @@ service.interceptors.response.use(
     if (res.request.responseType === 'blob' || res.request.responseType === 'arraybuffer') {
       return res.data
     }
+
     return Promise.resolve(res.data)
   },
   (error) => {

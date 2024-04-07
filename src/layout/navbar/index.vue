@@ -20,7 +20,9 @@ defineOptions({
         <a class="ant-dropdown-link" @click.prevent> Click me </a>
         <template #overlay>
           <a-menu>
-            <a-menu-item key="4">个人中心</a-menu-item>
+            <a-menu-item key="4">
+              <router-link to="/system/profile"> 个人中心 </router-link>
+            </a-menu-item>
             <a-menu-item key="3" @click="handleOut">退出登录</a-menu-item>
           </a-menu>
         </template>

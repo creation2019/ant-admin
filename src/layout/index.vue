@@ -45,7 +45,9 @@ defineOptions({
             </template>
             <a-menu-item key="/system/role">角色管理</a-menu-item>
             <a-menu-item key="/system/menus">菜单管理</a-menu-item>
-            <a-menu-item key="5">账号管理</a-menu-item>
+            <a-menu-item key="/system/post">岗位管理</a-menu-item>
+            <a-menu-item key="/system/dept">部门管理</a-menu-item>
+            <a-menu-item key="/system/user">账号管理</a-menu-item>
           </a-sub-menu>
           <a-sub-menu key="sub2">
             <template #title>

@@ -60,6 +60,24 @@ export default [
         name: 'role',
         meta: { title: '角色管理', icon: 'user' },
       },
+      {
+        path: 'post',
+        component: () => import('Views/system/post/index.vue'),
+        name: 'post',
+        meta: { title: '岗位管理', icon: 'user' },
+      },
+      {
+        path: 'dept',
+        component: () => import('Views/system/dept/index.vue'),
+        name: 'dept',
+        meta: { title: '部门管理', icon: 'user' },
+      },
+      {
+        path: 'user',
+        component: () => import('Views/system/user/index.vue'),
+        name: 'user',
+        meta: { title: '账号管理', icon: 'user' },
+      },
     ],
   },
 ]

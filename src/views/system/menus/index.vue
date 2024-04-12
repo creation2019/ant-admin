@@ -102,8 +102,15 @@ defineOptions({
         </a-row>
       </a-form>
     </a-card>
-    <a-card title="Card title" :bordered="false">
-      <a-table :dataSource="dataSource" :columns="columns" :pagination="false" rowKey="menuId" class="h-full" />
+    <a-card :bordered="false">
+      <a-table
+        :dataSource="dataSource"
+        :columns="columns"
+        :pagination="false"
+        rowKey="menuId"
+        :rowClassName="(_record: any, index: number) => (index % 2 === 1 ? 'table-striped' : undefined)"
+        class="h-full"
+      />
     </a-card>
   </div>
 </template>

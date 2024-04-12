@@ -1,34 +1,39 @@
 <script setup lang="ts">
-import { $listRole } from 'API/system/role'
+import { $listPost } from 'API/system/post'
+import type { TableColumnsType } from 'ant-design-vue'
 const dataSource = ref<any[]>([])
 const total = ref(0)
 const queryParams = ref({
   pageNum: 1,
   pageSize: 15,
-  roleName: '',
-  roleKey: '',
+  postCode: '',
+  postName: '',
   status: '',
 })
-const columns = [
+const columns = ref<TableColumnsType>([
   {
-    title: '角色编号',
-    dataIndex: 'roleId',
-    key: 'roleId',
+    title: '岗位编号',
+    dataIndex: 'postId',
+    resizable: true,
+    key: 'postId',
+    width: 180,
   },
   {
-    title: '角色名称',
-    dataIndex: 'roleName',
-    key: 'roleName ',
+    title: '岗位编码',
+    dataIndex: 'postCode',
+    resizable: true,
+    key: 'postCode ',
+    width: 150,
   },
   {
-    title: '权限字符',
-    dataIndex: 'roleKey',
-    key: 'roleKey',
+    title: '岗位名称',
+    dataIndex: 'postName',
+    key: 'postName',
   },
   {
-    title: '显示顺序',
-    dataIndex: 'roleSort',
-    key: 'roleSort',
+    title: '岗位排序',
+    dataIndex: 'postSort',
+    key: 'postSort',
   },
   {
     title: '状态',
@@ -45,20 +50,21 @@ const columns = [
     dataIndex: 'createTime',
     key: 'createTime',
   },
-]
+])
 /**
  * 查询角色列表
  */
 const getList = async () => {
-  const res = await $listRole(queryParams.value)
+  const res = await $listPost(queryParams.value)
   dataSource.value = res.rows
   total.value = res.total
 }
+
 onMounted(() => {
   getList()
 })
 defineOptions({
-  name: 'Role',
+  name: 'Post',
 })
 </script>
 
@@ -69,7 +75,8 @@ defineOptions({
         :dataSource="dataSource"
         :columns="columns"
         :pagination="false"
-        rowKey="roleId"
+        @resizeColumn="(w, col) => (col.width = w)"
+        rowKey="postId"
         :rowClassName="(_record: any, index: number) => (index % 2 === 1 ? 'table-striped' : undefined)"
       />
       <a-pagination
@@ -87,7 +94,7 @@ defineOptions({
 </template>
 
 <style lang="scss" scoped>
-.role {
+.post {
   color: red;
 }
 </style>

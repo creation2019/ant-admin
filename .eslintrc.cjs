@@ -21,6 +21,8 @@ module.exports = {
     'prettier/prettier': 0,
     'vue/multi-word-component-names': 'off',
     '@typescript-eslint/no-explicit-any': 0,
+    '@typescript-eslint/ban-types': 0,
+    '@typescript-eslint/no-unused-vars': 0,
     '@typescript-eslint/no-unused-vars': [
       'error',
       {
@@ -33,5 +35,5 @@ module.exports = {
         ignoreRestSiblings: true,
       },
     ],
-  }
+  },
 }

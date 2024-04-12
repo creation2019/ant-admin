@@ -8,7 +8,14 @@ const whiteList = ['/login', '/register']
 router.beforeEach(async (to, _from, next) => {
   NProgress.start()
   if (getToken()) {
-    next()
+    if (to.path === '/login') {
+      next({ path: '/' })
+      NProgress.done()
+    } else if (whiteList.indexOf(to.path) !== -1) {
+      next()
+    } else {
+      next()
+    }
   } else {
     // 没有token
     if (whiteList.indexOf(to.path) !== -1) {

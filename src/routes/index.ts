@@ -48,6 +48,18 @@ export default [
         name: 'profile',
         meta: { title: '个人中心', icon: 'user' },
       },
+      {
+        path: 'menus',
+        component: () => import('Views/system/menus/index.vue'),
+        name: 'menus',
+        meta: { title: '菜单管理', icon: 'user' },
+      },
+      {
+        path: 'role',
+        component: () => import('Views/system/role/index.vue'),
+        name: 'role',
+        meta: { title: '角色管理', icon: 'user' },
+      },
     ],
   },
 ]

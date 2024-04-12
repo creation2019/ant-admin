@@ -1,5 +1,6 @@
 // 此文件跟同级目录的 global.d.ts 文件一样也是全局类型声明，只不过这里存放一些零散的全局类型，无需引入直接在 .vue 、.ts 、.tsx 文件使用即可获得类型提示
-
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import axios from 'axios'
 type RefType<T> = T | null
 
 type EmitType = (event: string, ...args: any[]) => void
@@ -72,4 +73,13 @@ interface PromiseFn<T = any, R = T> {
 
 interface ComponentElRef<T extends HTMLElement = HTMLDivElement> {
   $el: T
+}
+
+declare module 'axios' {
+  export interface AxiosResponse<T = any> {
+    code: number
+    msg: string
+    rows: T
+    total: number
+  }
 }

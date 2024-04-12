@@ -1,19 +1,17 @@
 <script setup lang="ts">
-import {
-  PieChartOutlined,
-  DesktopOutlined,
-  UserOutlined,
-  TeamOutlined,
-  FileOutlined,
-  MenuFoldOutlined,
-  MenuUnfoldOutlined,
-} from '@ant-design/icons-vue'
+import { PieChartOutlined, UserOutlined, TeamOutlined, FileOutlined, MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons-vue'
 import Navbar from './navbar/index.vue'
 import AppMain from './components/appMain.vue'
+import { MenuProps } from 'ant-design-vue'
 // import Tag from './components/tag/index.vue'
+import { useRouter } from 'vue-router'
+const router = useRouter()
 
 const collapsed = ref<boolean>(false)
 const selectedKeys = ref<string[]>(['1'])
+const handleClick: MenuProps['onClick'] = ({ key }) => {
+  router.push({ path: key as string })
+}
 
 defineOptions({
   name: 'Layout',
@@ -33,25 +31,21 @@ defineOptions({
             <MenuFoldOutlined v-else />
           </div>
         </template>
-        <a-menu v-model:selectedKeys="selectedKeys" mode="inline">
-          <a-menu-item key="1">
+        <a-menu v-model:selectedKeys="selectedKeys" mode="inline" @click="handleClick">
+          <a-menu-item key="/">
             <pie-chart-outlined />
-            <span>Option 1</span>
-          </a-menu-item>
-          <a-menu-item key="2">
-            <desktop-outlined />
-            <span>Option 2</span>
+            <span>首页</span>
           </a-menu-item>
           <a-sub-menu key="sub1">
             <template #title>
               <span>
                 <user-outlined />
-                <span>User</span>
+                <span>系统管理</span>
               </span>
             </template>
-            <a-menu-item key="3">Tom</a-menu-item>
-            <a-menu-item key="4">Bill</a-menu-item>
-            <a-menu-item key="5">Alex</a-menu-item>
+            <a-menu-item key="/system/role">角色管理</a-menu-item>
+            <a-menu-item key="/system/menus">菜单管理</a-menu-item>
+            <a-menu-item key="5">账号管理</a-menu-item>
           </a-sub-menu>
           <a-sub-menu key="sub2">
             <template #title>

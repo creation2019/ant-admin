@@ -1,10 +1,27 @@
 <script setup lang="ts">
+import { ExclamationCircleOutlined } from '@ant-design/icons-vue'
+import { createVNode } from 'vue'
 import { useRouter } from 'vue-router'
 import FullScreen from './fullScreen.vue'
+import { Modal } from 'ant-design-vue'
 import Logo from './logo.vue'
+import { useUserStore } from 'Store/modules/user'
 const router = useRouter()
+const userStore = useUserStore()
+
 const handleOut = () => {
-  router.push('/login')
+  Modal.confirm({
+    title: '提示',
+    icon: createVNode(ExclamationCircleOutlined),
+    content: '是否要退出系统?',
+    centered: true,
+    okType: 'danger',
+    async onOk() {
+      await userStore.logout()
+      router.push('/login')
+    },
+    onCancel() {},
+  })
 }
 defineOptions({
   name: 'Navbar',

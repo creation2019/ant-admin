@@ -1,4 +1,6 @@
 import type { AxiosRequestConfig } from 'axios'
+import { AxiosPromise } from 'axios'
+import { RouteRecordRaw } from 'vue-router'
 import service from 'Plugins/request'
 
 /** 登录 POST */
@@ -16,5 +18,13 @@ export async function $authLogin(data?: LoginDto, options?: AxiosRequestConfig) 
     },
     data,
     ...(options || {}),
+  })
+}
+
+// 获取路由
+export function $getRouters(): AxiosPromise<RouteRecordRaw[]> {
+  return service({
+    url: '/system/menu/getRouters',
+    method: 'get',
   })
 }

@@ -3,9 +3,9 @@ import { $listMenu } from 'API/system/menus'
 import { MenuVO } from 'API/system/menus/types'
 import { handleTree } from 'Utils/tree'
 import { reactive, ref } from 'vue'
-import { DownOutlined, UpOutlined } from '@ant-design/icons-vue'
+
 import type { FormInstance } from 'ant-design-vue'
-const expand = ref(false)
+
 const formRef = ref<FormInstance>()
 const formState = reactive({})
 const onFinish = (values: any) => {
@@ -62,7 +62,6 @@ const getList = async () => {
   if (data) {
     dataSource.value = data as MenuVO[]
   }
-  console.log(' ', data)
 }
 onMounted(() => {
   getList()
@@ -77,27 +76,19 @@ defineOptions({
     <a-card class="mb-4">
       <a-form ref="formRef" name="advanced_search" class="ant-advanced-search-form" :model="formState" @finish="onFinish">
         <a-row :gutter="24">
-          <template>
-            <a-col :span="8">
-              <a-form-item :name="`field-`" :label="`field`" :rules="[{ required: true, message: 'input something' }]">
-                <a-input placeholder="placeholder"></a-input>
-              </a-form-item>
-            </a-col>
-          </template>
-        </a-row>
-        <a-row>
-          <a-col :span="24" style="text-align: right">
-            <a-button type="primary" html-type="submit">Search</a-button>
-            <a-button style="margin: 0 8px" @click="() => formRef?.resetFields()">Clear</a-button>
-            <a style="font-size: 12px" @click="expand = !expand">
-              <template v-if="expand">
-                <UpOutlined />
-              </template>
-              <template v-else>
-                <DownOutlined />
-              </template>
-              Collapse
-            </a>
+          <a-col :span="8">
+            <a-form-item name="status" label="status" :rules="[{ required: true, message: 'input something' }]">
+              <a-input v-model:value="queryParams.status" placeholder="placeholder"></a-input>
+            </a-form-item>
+          </a-col>
+          <a-col :span="8">
+            <a-form-item name="status" label="status" :rules="[{ required: true, message: 'input something' }]">
+              <a-input v-model:value="queryParams.status" placeholder="placeholder"></a-input>
+            </a-form-item>
+          </a-col>
+          <a-col :span="8" style="text-align: right">
+            <a-button type="primary" html-type="submit">搜索</a-button>
+            <a-button style="margin: 0 8px" @click="() => formRef?.resetFields()">重置</a-button>
           </a-col>
         </a-row>
       </a-form>

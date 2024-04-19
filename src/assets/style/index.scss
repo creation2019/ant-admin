@@ -1,1 +1,27 @@
 @import url('./antvue.scss');
+
+/* 滚动条的宽度 */
+::-webkit-scrollbar {
+  padding-right: 2px;
+  width: 8px;
+  height: 8px;
+  background-color: transparent;
+}
+
+// /* 外层轨道。可以用display:none让其不显示，也可以添加背景图片，颜色改变显示效果 */
+::-webkit-scrollbar-track {
+  width: 5px;
+  border-radius: 50px;
+}
+
+// /* 滚动条的设置 */
+::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border: 0;
+  border-radius: 10px;
+}
+
+/* 滚动条移上去的背景 */
+::-webkit-scrollbar-thumb:hover {
+  background: #c1c1c1;
+}

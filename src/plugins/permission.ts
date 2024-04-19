@@ -1,4 +1,4 @@
-import router from './router'
+import router from 'Routes/index'
 import { getToken } from '@/utils/auth'
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'

@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { to } from 'await-to-js'
 import { store } from 'Store/index'
-import { getToken, removeToken, setToken } from '@/utils/auth'
+import { getToken, removeToken, setToken } from 'Utils/auth'
 import { $login, $logout, $getInfo } from 'API/login'
 import { LoginData } from 'API/types'
 

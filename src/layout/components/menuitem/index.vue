@@ -1,45 +1,92 @@
 <script setup lang="ts">
 import { UserOutlined } from '@ant-design/icons-vue'
+import { isExternal, getNormalPath } from 'Utils/index'
+import AppLink from '../applink/index.vue'
+import { RouteOption } from 'vue-router'
+import { PropType } from 'vue'
+import MenuItem from '../menuitem/index.vue'
+const props = defineProps({
+  item: {
+    type: Object as PropType<RouteOption>,
+    required: true,
+  },
+  isNest: {
+    type: Boolean,
+    default: false,
+  },
+  basePath: {
+    type: String,
+    default: '',
+  },
+})
+const onlyOneChild = ref<any>({})
+
+const hasOneShowingChild = (children: RouteOption[] = [], parent: RouteOption) => {
+  if (!children) {
+    children = []
+  }
+  const showingChildren = children.filter((item) => {
+    if (item.hidden) {
+      return false
+    } else {
+      // Temp set(will be used if only has one showing child)
+      onlyOneChild.value = item
+      return true
+    }
+  })
+
+  // When there is only one child router, the child router is displayed by default
+  if (showingChildren.length === 1) {
+    return true
+  }
+
+  // Show parent if there are no child router to display
+  if (showingChildren.length === 0) {
+    onlyOneChild.value = { ...parent, path: '', noShowingChildren: true }
+    return true
+  }
+
+  return false
+}
+
+const resolvePath = (routePath: string, routeQuery?: string): any => {
+  if (isExternal(routePath)) {
+    return routePath
+  }
+  if (isExternal(props.basePath)) {
+    return props.basePath
+  }
+
+  if (routeQuery) {
+    let query = JSON.parse(routeQuery)
+    return { path: getNormalPath(props.basePath + '/' + routePath), query: query }
+  }
+
+  return getNormalPath(props.basePath + '/' + routePath)
+}
+
 defineOptions({
   name: 'MenuItem',
 })
 </script>
 
 <template>
-  <a-menu-item key="/">
-    <user-outlined />
-    <span>首页</span>
+  <a-menu-item
+    :key="resolvePath(onlyOneChild.path)"
+    v-if="!item.hidden && hasOneShowingChild(item.children, item) && (!onlyOneChild.children || onlyOneChild.noShowingChildren) && !item.alwaysShow"
+  >
+    <app-link v-if="onlyOneChild.meta" :to="resolvePath(onlyOneChild.path, onlyOneChild.query)">
+      <user-outlined />
+      <span>{{ onlyOneChild.meta?.title }}</span>
+    </app-link>
   </a-menu-item>
-  <a-sub-menu key="sub1">
+  <a-sub-menu v-else-if="!item.hidden" :key="resolvePath(item.path)">
     <template #title>
-      <span>
-        <user-outlined />
-        <span>系统管理</span>
-      </span>
+      <user-outlined />
+      <span>{{ item.meta?.title }}</span>
     </template>
-    <a-menu-item key="/system/role">角色管理</a-menu-item>
-    <a-menu-item key="/system/menus">菜单管理</a-menu-item>
-    <a-menu-item key="/system/post">岗位管理</a-menu-item>
-    <a-menu-item key="/system/dept">部门管理</a-menu-item>
-    <a-menu-item key="/system/user">账号管理</a-menu-item>
+    <menu-item v-for="child in item.children" :key="child.path" :is-nest="true" :item="child" :basePath="resolvePath(child.path)" class="nest-menu" />
   </a-sub-menu>
-  <a-sub-menu key="sub2">
-    <template #title>
-      <span>
-        <user-outlined />
-        <span>公司管理</span>
-      </span>
-    </template>
-    <a-menu-item key="/tenant/tenantmanage">公司管理</a-menu-item>
-    <a-menu-item key="/tenant/tenantpackage">套餐管理</a-menu-item>
-  </a-sub-menu>
-  <a-menu-item key="9">
-    <span>File</span>
-  </a-menu-item>
 </template>
 
-<style lang="scss" scoped>
-.menu-item {
-  color: red;
-}
-</style>
+<style lang="scss" scoped></style>

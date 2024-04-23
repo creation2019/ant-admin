@@ -3,7 +3,7 @@ import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons-vue'
 import Navbar from './navbar/index.vue'
 import AppMain from './appmain/index.vue'
 
-import Tag from './components/tag/index.vue'
+import TagsView from './components/tagsview/index.vue'
 
 import Sidebar from './sidebar/index.vue'
 
@@ -29,9 +29,9 @@ defineOptions({
         </template>
         <Sidebar />
       </a-layout-sider>
-      <a-layout style="position: relative; overflow: auto">
-        <Tag />
-        <a-layout-content>
+      <a-layout style="position: relative; overflow: hidden">
+        <tags-view />
+        <a-layout-content style="overflow: auto">
           <AppMain />
         </a-layout-content>
       </a-layout>

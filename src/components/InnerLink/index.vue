@@ -1,5 +1,5 @@
 <template>
-  <div :style="'height:' + height" class="pt-3">
+  <div :style="'height:' + height" class="main-content">
     <iframe :id="iframeId" style="width: 100%; height: 100%" :src="src" frameborder="no"></iframe>
   </div>
 </template>
@@ -15,5 +15,5 @@ defineProps({
   },
 })
 
-const height = ref(document.documentElement.clientHeight - 125 + 'px')
+const height = ref(document.documentElement.clientHeight - 100 + 'px')
 </script>

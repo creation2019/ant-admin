@@ -5,13 +5,12 @@ defineOptions({
 </script>
 
 <template>
-  <div class="welcome">
-    <h2>welcome</h2>
+  <div>
+    <a-row :gutter="[16, 0]" class="h-full">
+      <a-col flex="auto"> </a-col>
+      <a-col flex="400px">2</a-col>
+    </a-row>
   </div>
 </template>
 
-<style lang="scss" scoped>
-.welcome {
-  color: red;
-}
-</style>
+<style lang="scss" scoped></style>

@@ -10,6 +10,9 @@ import '@/assets/style/tailwind.css'
 import { setupRouter } from 'Routes/index'
 import { setupStore } from 'Store/index'
 
+// 注册插件
+import plugins from 'Plugins/index'
+
 import 'Plugins/permission'
 
 const app = createApp(App)
@@ -18,6 +21,7 @@ async function setupApp() {
   setupStore(app)
   // 挂载路由
   await setupRouter(app)
+  app.use(plugins)
 
   app.mount('#app')
 }

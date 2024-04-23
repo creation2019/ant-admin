@@ -8,26 +8,20 @@ export const constantRoutes: RouteOption[] = [
     path: '/',
     name: 'Home',
     component: Layout,
-    redirect: '/welcome',
-    meta: {
-      icon: 'ep:home-filled',
-      title: '首页',
-    },
+    redirect: '/index',
     children: [
       {
-        path: '/welcome',
-        name: 'Welcome',
+        path: 'index',
         component: () => import('Views/welcome/index.vue'),
-        meta: {
-          title: '首页',
-          icon: '',
-        },
+        name: 'Index',
+        meta: { title: '首页', icon: 'menu-shouye', affix: true },
       },
     ],
   },
   {
     path: '/redirect',
     component: Layout,
+    hidden: true,
     meta: {
       icon: '',
       title: '加载中...',
@@ -41,68 +35,16 @@ export const constantRoutes: RouteOption[] = [
       },
     ],
   },
-  { path: '/login', name: 'login', component: () => import('Views/login/index.vue') },
   {
-    path: '/system',
-    component: Layout,
+    path: '/login',
+    name: 'login',
     hidden: true,
-    children: [
-      {
-        path: 'profile',
-        component: () => import('Views/system/profile/index.vue'),
-        name: 'profile',
-        meta: { title: '个人中心', icon: 'user' },
-      },
-      {
-        path: 'menus',
-        component: () => import('Views/system/menus/index.vue'),
-        name: 'menus',
-        meta: { title: '菜单管理', icon: 'user' },
-      },
-      {
-        path: 'role',
-        component: () => import('Views/system/role/index.vue'),
-        name: 'role',
-        meta: { title: '角色管理', icon: 'user' },
-      },
-      {
-        path: 'post',
-        component: () => import('Views/system/post/index.vue'),
-        name: 'post',
-        meta: { title: '岗位管理', icon: 'user' },
-      },
-      {
-        path: 'dept',
-        component: () => import('Views/system/dept/index.vue'),
-        name: 'dept',
-        meta: { title: '部门管理', icon: 'user' },
-      },
-      {
-        path: 'user',
-        component: () => import('Views/system/user/index.vue'),
-        name: 'user',
-        meta: { title: '账号管理', icon: 'user' },
-      },
-    ],
+    component: () => import('Views/login/index.vue'),
   },
   {
-    path: '/tenant',
-    component: Layout,
+    path: '/:pathMatch(.*)*',
+    component: () => import('@/views/error/404.vue'),
     hidden: true,
-    children: [
-      {
-        path: 'tenantpackage',
-        component: () => import('Views/tenant/tenantpackage/index.vue'),
-        name: 'tenantpackage',
-        meta: { title: '套餐管理', icon: 'user' },
-      },
-      {
-        path: 'tenantmanage',
-        component: () => import('Views/tenant/tenantmanage/index.vue'),
-        name: 'tenantmanage',
-        meta: { title: '公司管理', icon: 'user' },
-      },
-    ],
   },
 ]
 

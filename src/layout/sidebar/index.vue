@@ -1,20 +1,27 @@
 <script setup lang="ts">
-import { MenuProps } from 'ant-design-vue'
-import { useRouter } from 'vue-router'
+import { useRoute } from 'vue-router'
 import MenuItem from '../components/menuitem/index.vue'
-const router = useRouter()
-const selectedKeys = ref<string[]>(['1'])
-const handleClick: MenuProps['onClick'] = ({ key }) => {
-  router.push({ path: key as string })
-}
+import { usePermissionStore } from 'Store/modules/permission'
+const permissionStore = usePermissionStore()
+const sidebarRouters = computed(() => permissionStore.sidebarRouters)
+const selectedKeys = computed(() => {
+  const { meta, path } = route
+  // if set path, the sidebar will highlight the path you set
+  if (meta.activeMenu) {
+    return [meta.activeMenu as string]
+  }
+  return [path]
+})
+const route = useRoute()
+
 defineOptions({
   name: 'Sidebar',
 })
 </script>
 
 <template>
-  <a-menu v-model:selectedKeys="selectedKeys" mode="inline" @click="handleClick">
-    <menu-item />
+  <a-menu v-model:selectedKeys="selectedKeys" mode="inline" :inlineIndent="16">
+    <menu-item v-for="(route, index) in sidebarRouters" :key="route.path + index" :item="route" :base-path="route.path" />
   </a-menu>
 </template>
 

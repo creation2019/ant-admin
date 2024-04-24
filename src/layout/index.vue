@@ -20,7 +20,7 @@ defineOptions({
       <Navbar />
     </a-layout-header>
     <a-layout>
-      <a-layout-sider v-model:collapsed="collapsed" collapsible style="background: #fff" class="app-sider">
+      <a-layout-sider v-model:collapsed="collapsed" collapsible class="app-sider">
         <template #trigger>
           <div>
             <MenuUnfoldOutlined v-if="collapsed" />
@@ -53,10 +53,12 @@ defineOptions({
 }
 
 .app-header {
-  background-color: #fff;
+  background-color: #4569e0;
 }
 
 .app-sider {
+  background-color: #001529;
+
   :deep(.ant-layout-sider-children) {
     overflow-y: auto;
   }

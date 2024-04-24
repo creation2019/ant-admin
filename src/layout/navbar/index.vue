@@ -31,25 +31,24 @@ defineOptions({
 <template>
   <div class="w-full h-full flex-bc">
     <Logo />
-    <div class="flex-c">
+    <a-space :size="8">
       <FullScreen />
-      <a-dropdown :trigger="['click']">
+      <a-dropdown :trigger="['click']" arrow>
         <a class="ant-dropdown-link" @click.prevent> Click me </a>
         <template #overlay>
           <a-menu>
             <a-menu-item key="4">
               <router-link to="/system/profile"> 个人中心 </router-link>
             </a-menu-item>
+            <a-divider style="margin: 5px 0" />
             <a-menu-item key="3" @click="handleOut">退出登录</a-menu-item>
+            <a-divider style="margin: 5px 0" />
+            <a-menu-item key="5" disabled>版本: 1.0.0</a-menu-item>
           </a-menu>
         </template>
       </a-dropdown>
-    </div>
+    </a-space>
   </div>
 </template>
 
-<style lang="scss" scoped>
-.navbar {
-  background-color: #fff;
-}
-</style>
+<style lang="scss" scoped></style>

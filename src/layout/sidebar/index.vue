@@ -20,7 +20,7 @@ defineOptions({
 </script>
 
 <template>
-  <a-menu v-model:selectedKeys="selectedKeys" mode="inline" :inlineIndent="16">
+  <a-menu v-model:selectedKeys="selectedKeys" mode="inline" :inlineIndent="16" theme="dark">
     <menu-item v-for="(route, index) in sidebarRouters" :key="route.path + index" :item="route" :base-path="route.path" />
   </a-menu>
 </template>

@@ -42,6 +42,20 @@ export const constantRoutes: RouteOption[] = [
     component: () => import('Views/login/index.vue'),
   },
   {
+    path: '/system',
+    component: Layout,
+    hidden: true,
+    redirect: 'noredirect',
+    children: [
+      {
+        path: 'profile',
+        component: () => import('Views/system/profile/index.vue'),
+        name: 'Profile',
+        meta: { title: '个人中心', icon: 'user' },
+      },
+    ],
+  },
+  {
     path: '/:pathMatch(.*)*',
     component: () => import('@/views/error/404.vue'),
     hidden: true,

@@ -5,12 +5,12 @@ import useTagsViewStore from 'Store/modules/tagsView'
 
 const { proxy } = getCurrentInstance() as any
 
-const visible = ref(false)
-const top = ref(0)
-const left = ref(0)
+// const visible = ref(false)
+// const top = ref(0)
+// const left = ref(0)
 const route = useRoute()
 const router = useRouter()
-const selectedTag = ref<TagView>({})
+// const selectedTag = ref<TagView>({})
 // const affixTags = ref<TagView[]>([]);
 const visitedViews = computed(() => useTagsViewStore().visitedViews)
 // const routes = computed(() => usePermissionStore().routes)
@@ -49,6 +49,12 @@ const closeSelectedTag = (view: TagView) => {
     }
   })
 }
+const refreshSelectedTag = (view: TagView) => {
+  proxy?.$tab.refreshPage(view)
+  if (route.meta.link) {
+    useTagsViewStore().delIframeView(route)
+  }
+}
 const toLastView = (visitedViews: TagView[], view?: TagView) => {
   const latestView = visitedViews.slice(-1)[0]
   if (latestView) {
@@ -64,23 +70,23 @@ const toLastView = (visitedViews: TagView[], view?: TagView) => {
     }
   }
 }
-const openMenu = (tag: TagView, e: MouseEvent) => {
-  const menuMinWidth = 105
-  const offsetLeft = proxy?.$el.getBoundingClientRect().left // container margin left
-  const offsetWidth = proxy?.$el.offsetWidth // container width
-  const maxLeft = offsetWidth - menuMinWidth // left boundary
-  const l = e.clientX - offsetLeft + 15 // 15: margin right
-
-  if (l > maxLeft) {
-    left.value = maxLeft
-  } else {
-    left.value = l
-  }
-
-  top.value = e.clientY - 50
-  visible.value = true
-  selectedTag.value = tag
-}
+// const openMenu = (tag: TagView, e: MouseEvent) => {
+//   const menuMinWidth = 105
+//   const offsetLeft = proxy?.$el.getBoundingClientRect().left // container margin left
+//   const offsetWidth = proxy?.$el.offsetWidth // container width
+//   const maxLeft = offsetWidth - menuMinWidth // left boundary
+//   const l = e.clientX - offsetLeft + 15 // 15: margin right
+//
+//   if (l > maxLeft) {
+//     left.value = maxLeft
+//   } else {
+//     left.value = l
+//   }
+//
+//   top.value = e.clientY - 50
+//   visible.value = true
+//   selectedTag.value = tag
+// }
 
 defineOptions({
   name: 'TagsView',
@@ -97,21 +103,33 @@ defineOptions({
       :to="{ path: tag.path ? tag.path : '', query: tag.query, fullPath: tag.fullPath ? tag.fullPath : '' }"
       class="tags-view-item"
       @click.middle="!isAffix(tag) ? closeSelectedTag(tag) : ''"
-      @contextmenu.prevent="openMenu(tag, $event)"
     >
-      <a-tag :bordered="false">
-        {{ tag.title }}
-        <span v-if="!isAffix(tag)" @click.prevent.stop="closeSelectedTag(tag)"> x </span></a-tag
-      >
+      <a-dropdown :trigger="['contextmenu']">
+        <span>
+          {{ tag.title }}
+          <span v-if="!isAffix(tag)" @click.prevent.stop="closeSelectedTag(tag)"> x </span>
+        </span>
+        <template #overlay>
+          <a-menu>
+            <a-menu-item key="1" @click="refreshSelectedTag(tag)">刷新页面</a-menu-item>
+            <a-menu-item key="2" v-if="!isAffix(tag)" @click="closeSelectedTag(tag)">关闭当前</a-menu-item>
+            <a-menu-item key="3">关闭其他</a-menu-item>
+            <a-menu-item key="5">关闭左侧</a-menu-item>
+            <a-menu-item key="6">关闭右侧</a-menu-item>
+            <a-menu-item key="7">全部关闭</a-menu-item>
+          </a-menu>
+        </template>
+      </a-dropdown>
     </router-link>
   </div>
 </template>
 
 <style lang="scss" scoped>
 .tag {
+  overflow: auto hidden;
   height: 34px;
-  line-height: 34px;
   background-color: #fff;
   border: 1px solid #eee;
+  line-height: 34px;
 }
 </style>

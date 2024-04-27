@@ -64,7 +64,8 @@ defineOptions({
 
 <template>
   <div>
-    <a-card :bordered="false">
+    <a-card> ww </a-card>
+    <a-card :bordered="false" class="mt-2">
       <a-table
         :dataSource="dataSource"
         :columns="columns"

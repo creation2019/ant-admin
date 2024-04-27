@@ -44,10 +44,10 @@ const codeUrl = ref('')
 const initTenantList = async () => {
   try {
     const { data } = await $getTenantList()
-    tenantEnabled.value = data.tenantEnabled === undefined ? true : data.tenantEnabled
+    tenantEnabled.value = data?.tenantEnabled === undefined ? true : data?.tenantEnabled
     if (tenantEnabled.value) {
-      tenantList.value = data.voList
-      if (tenantList.value != null && tenantList.value.length !== 0) {
+      tenantList.value = data?.voList
+      if (tenantList.value && tenantList.value.length !== 0) {
         formState.value.tenantId = tenantList.value[0].tenantId
       }
     }
@@ -100,7 +100,7 @@ defineOptions({
           </div>
           <div class="mt-10">
             <a-form :model="formState" name="basic" autocomplete="off" @finish="onFinish" size="large">
-              <a-form-item label="" name="tenantId" :rules="[{ required: true, message: 'Please input your username!' }]">
+              <a-form-item label="" name="tenantId" :rules="[{ required: true, message: '请选择/输入公司名称' }]">
                 <a-select v-model:value="formState.tenantId" placeholder="请选择/输入公司名称">
                   <a-select-option v-for="item in tenantList" :key="item.tenantId" :value="item.tenantId">
                     {{ item.companyName }}

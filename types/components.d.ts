@@ -40,6 +40,7 @@ declare module 'vue' {
     ATable: typeof import('ant-design-vue/es')['Table']
     ATag: typeof import('ant-design-vue/es')['Tag']
     ATooltip: typeof import('ant-design-vue/es')['Tooltip']
+    ATree: typeof import('ant-design-vue/es')['Tree']
     HelloWorld: typeof import('./../src/components/HelloWorld.vue')['default']
     InnerLink: typeof import('./../src/components/InnerLink/index.vue')['default']
     ParentView: typeof import('./../src/components/ParentView/index.vue')['default']

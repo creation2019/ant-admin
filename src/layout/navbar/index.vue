@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ExclamationCircleOutlined } from '@ant-design/icons-vue'
+import { ExclamationCircleOutlined, UserOutlined } from '@ant-design/icons-vue'
 import { createVNode } from 'vue'
 import { useRouter } from 'vue-router'
 import FullScreen from './fullScreen.vue'
@@ -33,6 +33,11 @@ defineOptions({
     <Logo />
     <a-space :size="8">
       <FullScreen />
+      <a-avatar style="background-color: #87d068">
+        <template #icon>
+          <UserOutlined />
+        </template>
+      </a-avatar>
       <a-dropdown :trigger="['click']" arrow>
         <a class="ant-dropdown-link" @click.prevent> Click me </a>
         <template #overlay>

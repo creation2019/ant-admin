@@ -1,13 +1,16 @@
 <script setup lang="ts">
+/*
+ * 组件用途: XXX
+ * 创建日期: 2024/4/28 11:53
+ * 编写者: 周癸
+ */
 defineOptions({
-  name: 'Ass',
+  name: '',
 })
 </script>
 
 <template>
-  <div class="Ass">
-    <h2>Ass</h2>
-  </div>
+  <div></div>
 </template>
 
-<style lang="scss" scoped></style>
+<style scoped lang="scss"></style>

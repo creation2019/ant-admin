@@ -10,8 +10,4 @@ defineOptions({
   </div>
 </template>
 
-<style lang="scss" scoped>
-.ass {
-  color: red;
-}
-</style>
+<style lang="scss" scoped></style>

@@ -79,14 +79,10 @@ defineOptions({
         show-size-changer
         @change="getList"
         :pageSizeOptions="['15', '30', '50', '100']"
-        :show-total="(_total, range) => `第 ${range[0]}-${range[1]} 条 共 ${_total} 条`"
+        :show-total="(total, range) => `第 ${range[0]}-${range[1]} 条 共 ${total} 条`"
       />
     </a-card>
   </div>
 </template>
 
-<style lang="scss" scoped>
-.ass {
-  color: red;
-}
-</style>
+<style lang="scss" scoped></style>

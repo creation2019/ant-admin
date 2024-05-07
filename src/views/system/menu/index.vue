@@ -1,3 +1,11 @@
+<!--
+ * @Description: 菜单管理
+ * @Author: zhougui
+ * @Date: 2024-04-24 16:03:48
+ * @LastEditors: zhougui
+ * @LastEditTime: 2024-05-07 09:29:38
+-->
+
 <script setup lang="ts">
 import { $listMenu } from 'API/system/menus'
 import { MenuVO } from 'API/system/menus/types'
@@ -8,10 +16,7 @@ import type { FormInstance } from 'ant-design-vue'
 
 const formRef = ref<FormInstance>()
 const formState = reactive({})
-const onFinish = (values: any) => {
-  console.log('Received values of form: ', values)
-  console.log('formState: ', formState)
-}
+
 const dataSource = ref<MenuVO[]>([])
 const queryParams = ref({
   menuName: undefined,
@@ -73,26 +78,20 @@ defineOptions({
 
 <template>
   <div>
-    <a-card class="mb-4">
-      <a-form ref="formRef" name="advanced_search" class="ant-advanced-search-form" :model="formState" @finish="onFinish">
-        <a-row :gutter="24">
-          <a-col :span="8">
-            <a-form-item name="status" label="status" :rules="[{ required: true, message: 'input something' }]">
-              <a-input v-model:value="queryParams.status" placeholder="placeholder"></a-input>
-            </a-form-item>
-          </a-col>
-          <a-col :span="8">
-            <a-form-item name="status" label="status" :rules="[{ required: true, message: 'input something' }]">
-              <a-input v-model:value="queryParams.status" placeholder="placeholder"></a-input>
-            </a-form-item>
-          </a-col>
-          <a-col :span="8" style="text-align: right">
-            <a-button type="primary" html-type="submit">搜索</a-button>
-            <a-button style="margin: 0 8px" @click="() => formRef?.resetFields()">重置</a-button>
-          </a-col>
-        </a-row>
-      </a-form>
-    </a-card>
+    <a-form ref="formRef" name="advanced_search" class="zg-query-form" :model="formState">
+      <a-row class="zg-query-form-row">
+        <a-form-item name="status" label="菜单名称" class="zg-query-form-item">
+          <a-input v-model:value="queryParams.status" placeholder="placeholder"></a-input>
+        </a-form-item>
+        <a-form-item name="status" label="状态" class="zg-query-form-item">
+          <a-input v-model:value="queryParams.status" placeholder="placeholder"></a-input>
+        </a-form-item>
+        <a-form-item class="zg-query-form-item zg-margin-left10">
+          <a-button type="primary" class="zg-margin-right10">搜索</a-button>
+          <a-button>重置</a-button>
+        </a-form-item>
+      </a-row>
+    </a-form>
     <a-card :bordered="false">
       <a-table
         :dataSource="dataSource"
@@ -106,8 +105,4 @@ defineOptions({
   </div>
 </template>
 
-<style lang="scss" scoped>
-.menu {
-  color: red;
-}
-</style>
+<style lang="scss" scoped></style>

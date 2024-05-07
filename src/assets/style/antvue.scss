@@ -10,3 +10,29 @@
 .table-striped td {
   background-color: #fafafa;
 }
+
+.zg-margin-left10 {
+  margin-left: 10px;
+}
+
+.zg-margin-right10 {
+  margin-right: 10px;
+}
+
+/***  表格搜索   ***/
+
+.zg-query-form {
+  padding: 5px 10px;
+  margin-bottom: 8px;
+  background-color: #fff;
+}
+
+.zg-query-form-row:not(:first-child) {
+  margin-top: 8px;
+}
+
+.zg-query-form-row .zg-query-form-item {
+  margin-top: 5px;
+  margin-right: 8px;
+  margin-bottom: 5px;
+}

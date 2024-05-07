@@ -128,8 +128,10 @@ defineOptions({
 .tag {
   overflow: auto hidden;
   height: 34px;
+  max-height: 34px;
   background-color: #fff;
   border: 1px solid #eee;
   line-height: 34px;
+  flex-shrink: 0;
 }
 </style>

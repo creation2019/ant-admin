@@ -2,6 +2,7 @@ import axios, { AxiosResponse, InternalAxiosRequestConfig } from 'axios'
 import { ExclamationCircleOutlined } from '@ant-design/icons-vue'
 import { createVNode } from 'vue'
 import { getToken } from '@/utils/auth'
+import { tansParams } from '@/utils'
 import { HttpStatus } from '@/enums/RespEnum'
 import { errorCode } from '@/utils/errorCode'
 import { message } from 'ant-design-vue'
@@ -24,8 +25,16 @@ service.interceptors.request.use(
     const isToken = (config.headers || {}).isToken === false
     // 是否需要防止数据重复提交
     const _isRepeatSubmit = (config.headers || {}).repeatSubmit === false
+
     if (getToken() && !isToken) {
       config.headers['Authorization'] = 'Bearer ' + getToken() // 让每个请求携带自定义token 请根据实际情况自行修改
+    }
+    // get请求映射params参数
+    if (config.method === 'get' && config.params) {
+      let url = config.url + '?' + tansParams(config.params)
+      url = url.slice(0, -1)
+      config.params = {}
+      config.url = url
     }
     if (config.data instanceof FormData) {
       delete config.headers['Content-Type']
@@ -51,6 +60,7 @@ service.interceptors.response.use(
     if (res.request.responseType === 'blob' || res.request.responseType === 'arraybuffer') {
       return res.data
     }
+
     if (code === HttpStatus.UNAUTHORIZED) {
       if (!isRelogin.show) {
         Modal.confirm({

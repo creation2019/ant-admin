@@ -61,7 +61,32 @@ defineOptions({
 
 <template>
   <div>
-    <a-card> ww </a-card>
+    <a-form ref="formRef" name="advanced_search" class="zg-query-form" :model="queryParams">
+      <a-row class="zg-query-form-row">
+        <a-form-item name="status" label="SN号" class="zg-query-form-item">
+          <a-input v-model:value="queryParams.roleKey" placeholder="placeholder"></a-input>
+        </a-form-item>
+        <a-form-item name="status" label="姓名" class="zg-query-form-item">
+          <a-input v-model:value="queryParams.roleKey" placeholder="placeholder"></a-input>
+        </a-form-item>
+        <a-form-item name="status" label="承包商公司" class="zg-query-form-item">
+          <a-input v-model:value="queryParams.roleKey" placeholder="placeholder"></a-input>
+        </a-form-item>
+        <a-form-item name="status" label="身份证" class="zg-query-form-item">
+          <a-input v-model:value="queryParams.roleKey" placeholder="placeholder"></a-input>
+        </a-form-item>
+        <a-form-item name="status" label="权限开关" class="zg-query-form-item">
+          <a-input v-model:value="queryParams.roleKey" placeholder="placeholder"></a-input>
+        </a-form-item>
+        <a-form-item name="status" label="持卡状态" class="zg-query-form-item">
+          <a-input v-model:value="queryParams.roleKey" placeholder="placeholder"></a-input>
+        </a-form-item>
+        <a-form-item class="zg-query-form-item zg-margin-left10">
+          <a-button type="primary" class="zg-margin-right10">搜索</a-button>
+          <a-button>重置</a-button>
+        </a-form-item>
+      </a-row>
+    </a-form>
     <a-card class="mt-2">
       <a-table
         :dataSource="dataSource"
@@ -76,6 +101,7 @@ defineOptions({
         v-model:pageSize="queryParams.pageSize"
         :total="total"
         show-quick-jumper
+        hideOnSinglePage
         show-size-changer
         @change="getList"
         :pageSizeOptions="['15', '30', '50', '100']"

@@ -29,7 +29,7 @@ defineOptions({
         </template>
         <Sidebar />
       </a-layout-sider>
-      <a-layout style="position: relative; overflow: hidden">
+      <a-layout style="position: relative; overflow: hidden; background-color: #f0f3fb">
         <tags-view />
         <a-layout-content style="overflow: auto">
           <AppMain />

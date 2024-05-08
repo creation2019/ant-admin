@@ -49,22 +49,37 @@ defineOptions({
 
 <template>
   <div>
-    <a-card> ww </a-card>
+    <a-form ref="formRef" name="advanced_search" class="zg-query-form">
+      <a-row class="zg-query-form-row">
+        <a-form-item name="status" label="姓名/工号" class="zg-query-form-item">
+          <a-input placeholder="placeholder"></a-input>
+        </a-form-item>
+        <a-form-item name="status" label="卡号" class="zg-query-form-item">
+          <a-input placeholder="placeholder"></a-input>
+        </a-form-item>
+        <a-form-item name="status" label="岗位状态" class="zg-query-form-item">
+          <a-input placeholder="placeholder"></a-input>
+        </a-form-item>
+        <a-form-item name="status" label="持卡状态" class="zg-query-form-item">
+          <a-input placeholder="placeholder"></a-input>
+        </a-form-item>
+        <a-form-item class="zg-query-form-item zg-margin-left10">
+          <a-button type="primary" class="zg-margin-right10">搜索</a-button>
+          <a-button>重置</a-button>
+        </a-form-item>
+      </a-row>
+    </a-form>
 
-    <a-row class="mt-2">
-      <a-col span="24">
-        <a-card>
-          <a-table
-            :dataSource="dataSource"
-            :columns="columns"
-            :pagination="false"
-            rowKey="dictId"
-            :rowClassName="(_record: any, index: number) => (index % 2 === 1 ? 'table-striped' : undefined)"
-            class="h-full"
-          />
-        </a-card>
-      </a-col>
-    </a-row>
+    <a-card>
+      <a-table
+        :dataSource="dataSource"
+        :columns="columns"
+        :pagination="false"
+        rowKey="dictId"
+        :rowClassName="(_record: any, index: number) => (index % 2 === 1 ? 'table-striped' : undefined)"
+        class="h-full"
+      />
+    </a-card>
   </div>
 </template>
 

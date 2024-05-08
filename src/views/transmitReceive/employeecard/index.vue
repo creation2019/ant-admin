@@ -1,8 +1,9 @@
 <script setup lang="ts">
+import type { TableColumnType } from 'ant-design-vue'
 import { $getCardCardholderList } from 'API/transmitReceive/employeecard'
 import type { TreeProps } from 'ant-design-vue'
 const dataSource = ref<any[]>([])
-const columns = [
+const columns: TableColumnType[] = [
   {
     title: '工号',
     dataIndex: 'jobNum',
@@ -67,6 +68,7 @@ const columns = [
     title: '操作',
     dataIndex: 'action',
     key: 'action',
+    fixed: 'right',
   },
 ]
 const treeData: TreeProps['treeData'] = [
@@ -113,6 +115,7 @@ const getList = async () => {
   total.value = res.total
   loading.value = false
 }
+
 onMounted(() => {
   getList()
 })
@@ -145,7 +148,7 @@ defineOptions({
     </a-form>
     <a-row :gutter="8" class="mt-2">
       <a-col :span="3">
-        <a-card>
+        <a-card class="h-full">
           <a-tree :treeData="treeData" />
         </a-card>
       </a-col>

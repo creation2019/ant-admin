@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { TableColumnType } from 'ant-design-vue'
 import { $getCardCardholderList } from 'API/transmitReceive/employeecard'
-import type { TreeProps } from 'ant-design-vue'
+import { PersonApi } from 'API/system/person'
 const dataSource = ref<any[]>([])
 const columns: TableColumnType[] = [
   {
@@ -71,28 +71,8 @@ const columns: TableColumnType[] = [
     fixed: 'right',
   },
 ]
-const treeData: TreeProps['treeData'] = [
-  {
-    title: 'parent 1',
-    key: '0-0',
-    children: [
-      {
-        title: 'parent 1-0',
-        key: '0-0-0',
-        disabled: true,
-        children: [
-          { title: 'leaf', key: '0-0-0-0', disableCheckbox: true },
-          { title: 'leaf', key: '0-0-0-1' },
-        ],
-      },
-      {
-        title: 'parent 1-1',
-        key: '0-0-1',
-        children: [{ key: '0-0-1-0', title: 'sss' }],
-      },
-    ],
-  },
-]
+const treeData = ref([])
+
 const total = ref(0)
 const loading = ref(true)
 const queryParams = ref({
@@ -105,9 +85,7 @@ const queryParams = ref({
   postId: '',
   deptId: '',
 })
-/**
- * 查询角色列表
- */
+/** 查询角色列表 */
 const getList = async () => {
   loading.value = true
   const res = await $getCardCardholderList(queryParams.value)
@@ -115,9 +93,15 @@ const getList = async () => {
   total.value = res.total
   loading.value = false
 }
+/** 查询部门下拉树结构 */
+const getTreeSelect = async () => {
+  const res = await PersonApi.getDeptPostTree()
+  treeData.value = res.data || []
+}
 
 onMounted(() => {
   getList()
+  getTreeSelect()
 })
 defineOptions({
   name: 'EmployeeCard',
@@ -149,7 +133,7 @@ defineOptions({
     <a-row :gutter="8" class="mt-2">
       <a-col :span="3">
         <a-card class="h-full">
-          <a-tree :treeData="treeData" />
+          <a-tree :treeData="treeData" :fieldNames="{ title: 'label', key: 'id' }" />
         </a-card>
       </a-col>
       <a-col :span="21">
